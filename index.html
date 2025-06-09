@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieHub - Order Your Favorite Food</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #3498db, #2980b9, #1e3c72);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 10px 2px rgba(135, 206, 250, 0.7);
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(41, 128, 185, 0.3);
+            z-index: 100;
+            animation: slideDown 0.8s ease-out;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e3c72;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1e3c72, #2980b9, #3498db, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 5px rgba(52, 152, 219, 0.3)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(52, 152, 219, 0.6)); }
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .coins {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            padding: 8px 15px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+            animation: coinSpin 4s linear infinite;
+        }
+
+        @keyframes coinSpin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .profile-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1e3c72, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .food-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .food-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(41, 128, 185, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .food-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(255, 255, 255, 0) 50%, rgba(52, 152, 219, 0.05) 100%);
+            pointer-events: none;
+        }
+
+        .food-item:nth-child(1) { animation-delay: 0.1s; }
+        .food-item:nth-child(2) { animation-delay: 0.2s; }
+        .food-item:nth-child(3) { animation-delay: 0.3s; }
+        .food-item:nth-child(4) { animation-delay: 0.4s; }
+        .food-item:nth-child(5) { animation-delay: 0.5s; }
+        .food-item:nth-child(6) { animation-delay: 0.6s; }
+        .food-item:nth-child(7) { animation-delay: 0.7s; }
+        .food-item:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(41, 128, 185, 0.3);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        .food-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-right: 25px;
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .food-item:hover .food-image {
+            transform: scale(1.05) rotate(2deg);
+            border-color: rgba(52, 152, 219, 0.6);
+            box-shadow: 0 8px 25px rgba(41, 128, 185, 0.4);
+        }
+
+        .food-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .food-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .food-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .food-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #f8fbff, #e8f4ff);
+            border-radius: 25px;
+            padding: 5px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            box-shadow: 0 2px 10px rgba(41, 128, 185, 0.1);
+        }
+
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1e3c72, #2980b9);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(30, 60, 114, 0.3);
+        }
+
+        .qty-btn:hover {
+            background: linear-gradient(45deg, #0f2027, #1e3c72);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+        }
+
+        .qty-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #1e3c72;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 198, 255, 0.5);
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+        }
+
+        .cart-btn {
+            background: linear-gradient(45deg, #1e3c72, #2980b9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.5);
+            background: linear-gradient(45deg, #0f2027, #1e3c72);
+        }
+
+        /* Scroll Animation */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #2980b9, #3498db, #00c6ff);
+            transform-origin: left;
+            z-index: 1000;
+            animation: scrollProgress linear;
+            animation-timeline: scroll();
+        }
+
+        /* Enhanced Blue Effects */
+        .food-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3c72, #2980b9, #3498db, #00c6ff);
+            border-radius: 20px 20px 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .food-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Blue accent colors for different elements */
+        .food-item:nth-child(odd) {
+            border-left: 4px solid #1e3c72;
+        }
+
+        .food-item:nth-child(even) {
+            border-left: 4px solid #00c6ff;
+        }
+
+        /* Blue glow effect */
+        .action-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .title {
+                font-size: 24px;
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .food-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+
+            .food-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .food-actions {
+                justify-content: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #1e3c72, #3498db);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #0f2027, #1e3c72);
+        }
+
+        /* Enhanced Blue Animations */
+        @keyframes blueGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(52, 152, 219, 0.8); }
+        }
+
+        .food-item:hover {
+            animation: blueGlow 2s infinite;
+        }
+
+        /* Shimmering effect */
+        .food-item::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transform: rotate(30deg);
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .food-item:hover::after {
+            opacity: 1;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(30deg) translateY(0); }
+            100% { transform: rotate(30deg) translateY(50%); }
+        }
+
+        /* Water ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            transform: scale(0);
+            animation: ripple 1s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Floating bubbles */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 8s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            animation-duration: 11s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 8s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(7) {
+            width: 25px;
+            height: 25px;
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(8) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(9) {
+            width: 15px;
+            height: 15px;
+            left: 70%;
+            animation-duration: 6s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(10) {
+            width: 50px;
+            height: 50px;
+            left: 85%;
+            animation-duration: 5s;
+            animation-delay: 3s;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Floating Bubbles -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">🌊 FoodieHub</div>
+            <h1 class="title">Delicious Food Menu</h1>
+            <div class="user-section">
+                <div class="coins">💎 1,250</div>
+                <div class="profile-icon">👤</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="food-list">
+                <!-- Food Item 1 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Classic Burger" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Classic Beef Burger</h3>
+                        <p class="food-description">Juicy beef patty with fresh lettuce, tomatoes, onions, and our special sauce on a toasted bun.</p>
+                        <div class="food-price">$12.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 2 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Chicken Wings" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Spicy Chicken Wings</h3>
+                        <p class="food-description">Crispy chicken wings tossed in our signature spicy buffalo sauce, served with ranch dip.</p>
+                        <div class="food-price">$9.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 3 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Margherita Pizza" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Margherita Pizza</h3>
+                        <p class="food-description">Fresh mozzarella, tomato sauce, and basil leaves on our hand-tossed pizza dough.</p>
+                        <div class="food-price">$15.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 4 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Caesar Salad" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Caesar Salad</h3>
+                        <p class="food-description">Crisp romaine lettuce, parmesan cheese, croutons, and creamy caesar dressing.</p>
+                        <div class="food-price">$8.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 5 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Fish Tacos" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Grilled Fish Tacos</h3>
+                        <p class="food-description">Grilled white fish with cabbage slaw, pico de gallo, and chipotle mayo in soft tortillas.</p>
+                        <div class="food-price">$11.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 6 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Pasta Carbonara" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Pasta Carbonara</h3>
+                        <p class="food-description">Creamy pasta with bacon, eggs, parmesan cheese, and black pepper. A classic Italian dish.</p>
+                        <div class="food-price">$13.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 7 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="BBQ Ribs" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">BBQ Baby Back Ribs</h3>
+                        <p class="food-description">Tender baby back ribs glazed with our smoky BBQ sauce, served with coleslaw and fries.</p>
+                        <div class="food-price">$18.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Item 8 -->
+                <div class="food-item">
+                    <img src="/placeholder.svg?height=120&width=120" alt="Chocolate Cake" class="food-image">
+                    <div class="food-details">
+                        <h3 class="food-name">Chocolate Fudge Cake</h3>
+                        <p class="food-description">Rich chocolate cake with layers of fudge frosting, topped with chocolate shavings.</p>
+                        <div class="food-price">$6.99</div>
+                        <div class="food-actions">
+                            <div class="quantity-control">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <button class="action-btn buy-btn">Buy Now</button>
+                            <button class="action-btn cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Quantity control functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const qtyBtns = document.querySelectorAll('.qty-btn');
+            
+            qtyBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const isIncrement = this.textContent === '+';
+                    const qtyDisplay = isIncrement ? 
+                        this.previousElementSibling : 
+                        this.nextElementSibling;
+                    
+                    let currentQty = parseInt(qtyDisplay.textContent);
+                    
+                    if (isIncrement) {
+                        currentQty++;
+                    } else if (currentQty > 1) {
+                        currentQty--;
+                    }
+                    
+                    qtyDisplay.textContent = currentQty;
+                    
+                    // Add animation effect
+                    qtyDisplay.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        qtyDisplay.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add click effects for action buttons
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Button press effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    
+                    const x = e.clientX - e.target.getBoundingClientRect().left;
+                    const y = e.clientY - e.target.getBoundingClientRect().top;
+                    
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 1000);
+                });
+            });
+
+            // Scroll progress indicator
+            window.addEventListener('scroll', () => {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                document.querySelector('.scroll-indicator').style.transform = `scaleX(${scrolled / 100})`;
+            });
+            
+            // Add hover effect to food items
+            const foodItems = document.querySelectorAll('.food-item');
+            foodItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
