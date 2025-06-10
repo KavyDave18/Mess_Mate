@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieHub - Student Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #3498db, #2980b9, #1e3c72);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 10px 2px rgba(135, 206, 250, 0.7);
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Floating bubbles */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 8s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            animation-duration: 11s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 8s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(7) {
+            width: 25px;
+            height: 25px;
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(8) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(9) {
+            width: 15px;
+            height: 15px;
+            left: 70%;
+            animation-duration: 6s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(10) {
+            width: 50px;
+            height: 50px;
+            left: 85%;
+            animation-duration: 5s;
+            animation-delay: 3s;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px);
+            }
+        }
+
+        /* Login Container */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            box-shadow: 0 15px 50px rgba(41, 128, 185, 0.3);
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            width: 100%;
+            max-width: 450px;
+            animation: slideInUp 0.8s ease-out;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #2980b9, #3498db, #00c6ff);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .login-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(255, 255, 255, 0) 50%, rgba(52, 152, 219, 0.05) 100%);
+            pointer-events: none;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Logo and Title */
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .login-title {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1e3c72, #2980b9, #3498db, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 5px rgba(52, 152, 219, 0.3)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(52, 152, 219, 0.6)); }
+        }
+
+        .login-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        .login-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 15px;
+            font-size: 16px;
+            background: linear-gradient(135deg, #f8fbff, #e8f4ff);
+            transition: all 0.3s ease;
+            outline: none;
+            position: relative;
+        }
+
+        .form-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Input Icons */
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 18px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group:focus-within .input-icon {
+            color: #1e3c72;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Login Button */
+        .login-button {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #1e3c72, #2980b9);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-button:hover {
+            background: linear-gradient(45deg, #0f2027, #1e3c72);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.5);
+        }
+
+        .login-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            transform: scale(0);
+            animation: ripple 1s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Additional Visual Effects */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 8s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            width: 40px;
+            height: 40px;
+            background: #2980b9;
+            border-radius: 50%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            width: 30px;
+            height: 30px;
+            background: #1e3c72;
+            border-radius: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 40px 30px;
+            }
+
+            .login-title {
+                font-size: 28px;
+            }
+
+            .logo {
+                font-size: 40px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .login-button.loading .loading {
+            display: inline-block;
+        }
+
+        .login-button.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Success Animation */
+        .success-checkmark {
+            display: none;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .login-button.success .success-checkmark {
+            display: inline-block;
+        }
+
+        /* Fade out animation for page transition */
+        .fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Floating Bubbles -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Floating Shapes -->
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+
+        <!-- Login Header -->
+        <div class="login-header">
+            <div class="logo">🌊</div>
+            <h1 class="login-title">FoodieHub</h1>
+            <p class="login-subtitle">Student Portal Login</p>
+        </div>
+
+        <!-- Login Form -->
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="studentName" class="form-label">Student Name</label>
+                <input 
+                    type="text" 
+                    id="studentName" 
+                    name="studentName" 
+                    class="form-input" 
+                    placeholder="Enter your full name"
+                    required
+                >
+                <span class="input-icon">👤</span>
+            </div>
+
+            <div class="form-group">
+                <label for="studentId" class="form-label">Student ID</label>
+                <input 
+                    type="text" 
+                    id="studentId" 
+                    name="studentId" 
+                    class="form-input" 
+                    placeholder="Enter your student ID"
+                    required
+                >
+                <span class="input-icon">🎓</span>
+            </div>
+
+            <button type="submit" class="login-button" id="loginBtn">
+                <span class="loading"></span>
+                <span class="success-checkmark">✓</span>
+                <span class="button-text">Login to FoodieHub</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginContainer = document.querySelector('.login-container');
+            const inputs = document.querySelectorAll('.form-input');
+
+            // Add focus/blur effects to inputs
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+
+                // Add typing animation
+                input.addEventListener('input', function() {
+                    if (this.value.length > 0) {
+                        this.style.borderColor = '#2980b9';
+                        this.style.backgroundColor = '#f0f8ff';
+                    } else {
+                        this.style.borderColor = 'rgba(52, 152, 219, 0.2)';
+                        this.style.backgroundColor = 'linear-gradient(135deg, #f8fbff, #e8f4ff)';
+                    }
+                });
+            });
+
+            // Handle form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const studentName = document.getElementById('studentName').value.trim();
+                const studentId = document.getElementById('studentId').value.trim();
+
+                if (!studentName || !studentId) {
+                    // Add shake animation for error
+                    loginContainer.style.animation = 'shake 0.5s ease-in-out';
+                    setTimeout(() => {
+                        loginContainer.style.animation = 'slideInUp 0.8s ease-out';
+                    }, 500);
+                    
+                    // Show error message
+                    const errorMsg = document.createElement('div');
+                    errorMsg.textContent = 'Please fill in all fields';
+                    errorMsg.style.cssText = `
+                        color: #e74c3c;
+                        text-align: center;
+                        margin-top: 10px;
+                        font-weight: bold;
+                        animation: fadeIn 0.3s ease-in;
+                    `;
+                    loginForm.appendChild(errorMsg);
+                    
+                    setTimeout(() => {
+                        errorMsg.remove();
+                    }, 3000);
+                    return;
+                }
+
+                // Add loading state
+                loginBtn.classList.add('loading');
+                loginBtn.querySelector('.button-text').textContent = 'Logging in...';
+
+                // Simulate login process
+                setTimeout(() => {
+                    // Remove loading state and show success
+                    loginBtn.classList.remove('loading');
+                    loginBtn.classList.add('success');
+                    loginBtn.querySelector('.button-text').textContent = 'Login Successful!';
+                    loginBtn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                    
+                    // Add success animation to container
+                    loginContainer.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        loginContainer.style.transform = 'scale(1)';
+                    }, 200);
+                    
+                    // Navigate to index.html after success animation
+                    setTimeout(() => {
+                        // Add fade out effect
+                        document.body.classList.add('fade-out');
+                        
+                        // Navigate to index.html
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 500);
+                    }, 1500);
+                }, 2000);
+            });
+
+            // Add ripple effect to login button
+            loginBtn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
+
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            });
+
+            // Add floating animation to login container
+            let floatDirection = 1;
+            
+            setInterval(() => {
+                floatDirection *= -1;
+                loginContainer.style.transform = `translateY(${floatDirection * 3}px)`;
+            }, 3000);
+
+            // Add particle interaction
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                particle.addEventListener('animationiteration', function() {
+                    this.style.boxShadow = `0 0 ${Math.random() * 20 + 5}px 2px rgba(135, 206, 250, ${Math.random() * 0.5 + 0.5})`;
+                });
+            });
+
+            // Add shake animation for errors
+            const shakeKeyframes = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            const style = document.createElement('style');
+            style.textContent = shakeKeyframes;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
