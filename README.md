@@ -1,56 +1,68 @@
-# 🍽️ MessMate - Smart Mess Management System
+# 🍽️ MessMate - College Mess Online Ordering System
 
-MessMate is a full-stack web application designed to streamline and simplify hostel mess operations. It helps students and mess administrators manage meals, attendance, menu planning, payments, and feedback — all in one place.
+MessMate is a modern, full-stack web application built to simplify and digitize college mess food ordering. Students can easily place orders online, track their orders, and earn rewards through a unique **Unknown Cash** system — a surprise bonus system that adds fun to every order.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-### 🧑‍🎓 For Students
-- **Live Meal Status** – See what's being served and when.
-- **Daily Opt-in/Opt-out** – Mark attendance for meals (to reduce food waste).
-- **Meal Feedback** – Rate and review meals anonymously.
-- **Leave Meal Cancellation** – Pre-inform mess about absence.
-- **Monthly Menu Viewer** – View menus in advance.
+### 🎯 Core Functionality
+- ✅ Online menu browsing and ordering
+- ✅ Real-time order placement
+- ✅ Digital order history for every student
+- ✅ Admin panel to manage menu, orders, and inventory
 
-### 🧑‍💼 For Mess Admins
-- **Real-time Attendance Dashboard** – Monitor meal count and reduce waste.
-- **Menu Management** – Add/edit daily menus with images.
-- **Student Meal Logs** – Track usage patterns.
-- **Analytics** – Generate reports (meals served, satisfaction, waste reduction).
-- **Payment Tracking** – View dues and payments (optional).
+### 🎁 Unique Feature: Unknown Cash
+- With every order, users receive a **random amount of Unknown Cash (bonus cash)**.
+- Unknown Cash can be used for discounts or free orders.
+- Adds an element of surprise and engagement for students.
+
+### 🔒 Authentication
+- Secure student login system
+- Session or JWT-based authentication
 
 ---
 
 ## 💻 Tech Stack
 
-| Layer        | Technology Used                         |
-|--------------|------------------------------------------|
-| Frontend     | HTML, CSS, JavaScript, Bootstrap, React or plain JS |
-| Backend      | Java (Spring Boot) or Python (Flask/Django) |
-| Database     | MySQL or PostgreSQL                     |
-| Authentication | JWT / Session-based login              |
-| Hosting      | Render / Vercel / Netlify / AWS EC2     |
+| Layer        | Technology Used        |
+|--------------|-------------------------|
+| Frontend     | HTML, CSS, JavaScript (React / Vanilla JS) |
+| Backend      | Node.js (Express.js) or Java Spring Boot |
+| Database     | MySQL / MongoDB         |
+| Authentication | JWT / Session-based login |
+| Hosting      | Render / Vercel / Netlify / AWS |
 
 ---
 
-## 📱 Responsive UI
+## 📱 User Roles
 
-- Mobile, tablet, and desktop friendly
-- Colorful, engaging design tailored for students
+- **Students:**  
+  - Browse mess menu  
+  - Place orders  
+  - Earn Unknown Cash  
+  - Use bonus cash for future orders
+
+- **Mess Admins:**  
+  - Manage food items and availability  
+  - Monitor orders in real-time  
+  - View transaction reports  
+  - Control Unknown Cash algorithm rules
 
 ---
 
-## 📊 Future Enhancements
-- AI-based food rating analysis
-- Meal prediction based on attendance patterns
-- Payment gateway integration
-- Chatbot for mess-related queries
+## 🌟 Future Enhancements
+
+- Payment Gateway Integration
+- Leaderboard for top Unknown Cash earners
+- Push Notifications for order updates
+- AI-based food popularity tracking
+- Inventory auto-reordering system
 
 ---
 
 ## 🛠️ Setup Instructions
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/messmate.git
+1. **Clone Repository**
+```bash
+git clone https://github.com/your-username/messmate.git
