@@ -505,6 +505,7 @@
                 width: 100%;
                 justify-content: center;
                 margin-top: 10px;
+                gap: 15px;
             }
 
             .main-content {
@@ -563,9 +564,10 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="menu.html" class="nav-link">Menu</a>
                 <a href="cart.html" class="nav-link active">Cart</a>
+                <a href="redeem.html" class="nav-link">Redeem</a>
             </nav>
             <div class="user-section">
-                <div class="coins">💎 1,250</div>
+                <div class="coins" id="header-coins">💎 1,250</div>
                 <div class="profile-icon">👤</div>
             </div>
         </header>
@@ -609,7 +611,18 @@
     </div>
 
     <script>
+        // Load coin balance from localStorage
+        function updateCoinDisplay() {
+            const coinBalance = parseInt(localStorage.getItem('coinBalance')) || 1250;
+            const headerCoins = document.getElementById('header-coins');
+            if (headerCoins) {
+                headerCoins.textContent = `💎 ${coinBalance}`;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            updateCoinDisplay();
+            
             const cartItemsList = document.getElementById('cart-items-list');
             const subtotalEl = document.getElementById('subtotal');
             const taxEl = document.getElementById('tax');
@@ -702,12 +715,30 @@
 
             checkoutBtn.addEventListener('click', function() {
                 if (!this.disabled) {
+                    // Calculate total for coin earning
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    let subtotal = 0;
+                    cart.forEach(item => {
+                        const price = parseFloat(item.price.replace('$', ''));
+                        subtotal += price * item.quantity;
+                    });
+                    const tax = subtotal * 0.085;
+                    const delivery = subtotal > 30 ? 0 : 2.99;
+                    const total = subtotal + tax + delivery;
+
+                    // Award coins (10 coins per dollar spent)
+                    const coinsEarned = Math.floor(total * 10);
+                    let currentCoins = parseInt(localStorage.getItem('coinBalance')) || 1250;
+                    currentCoins += coinsEarned;
+                    localStorage.setItem('coinBalance', currentCoins);
+                    updateCoinDisplay();
+
                     // Simulate checkout process
                     this.textContent = 'Processing...';
                     this.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
                     
                     setTimeout(() => {
-                        alert('Order placed successfully! 🎉');
+                        alert(`🎉 Order placed successfully!\n💎 You earned ${coinsEarned} coins!`);
                         localStorage.removeItem('cart');
                         loadCart();
                         this.textContent = 'Proceed to Checkout';
@@ -718,6 +749,13 @@
 
             // Load cart on page load
             loadCart();
+
+            // Listen for coin updates
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'coinBalance') {
+                    updateCoinDisplay();
+                }
+            });
         });
     </script>
 </body>
