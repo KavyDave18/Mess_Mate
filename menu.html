@@ -436,6 +436,7 @@
                 width: 100%;
                 justify-content: center;
                 margin-top: 10px;
+                gap: 15px;
             }
 
             .main-content {
@@ -488,9 +489,10 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="menu.html" class="nav-link active">Menu</a>
                 <a href="cart.html" class="nav-link">Cart</a>
+                <a href="redeem.html" class="nav-link">Redeem</a>
             </nav>
             <div class="user-section">
-                <div class="coins">💎 1,250</div>
+                <div class="coins" id="header-coins">💎 1,250</div>
                 <div class="profile-icon">👤</div>
             </div>
         </header>
@@ -670,7 +672,18 @@
     </div>
 
     <script>
+        // Load coin balance from localStorage
+        function updateCoinDisplay() {
+            const coinBalance = parseInt(localStorage.getItem('coinBalance')) || 1250;
+            const headerCoins = document.getElementById('header-coins');
+            if (headerCoins) {
+                headerCoins.textContent = `💎 ${coinBalance}`;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            updateCoinDisplay();
+            
             // Category filter functionality
             const categoryBtns = document.querySelectorAll('.category-btn');
             const menuItems = document.querySelectorAll('.menu-item');
@@ -775,6 +788,13 @@
                         this.style.zIndex = '5';
                     }, 300);
                 });
+            });
+
+            // Listen for coin updates
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'coinBalance') {
+                    updateCoinDisplay();
+                }
             });
         });
     </script>
