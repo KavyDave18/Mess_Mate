@@ -26,7 +26,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating particles animation */
         .particles {
             position: fixed;
             top: 0;
@@ -64,41 +63,6 @@
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
-        /* Floating bubbles */
-        .bubbles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .bubble {
-            position: absolute;
-            bottom: -100px;
-            width: 40px;
-            height: 40px;
-            background: rgba(52, 152, 219, 0.1);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: rise 10s infinite ease-in;
-        }
-
-        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
-        .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 5s; animation-delay: 1s; }
-        .bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 7s; animation-delay: 2s; }
-        .bubble:nth-child(4) { width: 80px; height: 80px; left: 50%; animation-duration: 11s; animation-delay: 0s; }
-        .bubble:nth-child(5) { width: 35px; height: 35px; left: 55%; animation-duration: 6s; animation-delay: 1s; }
-
-        @keyframes rise {
-            0% { bottom: -100px; transform: translateX(0); }
-            50% { transform: translateX(100px); }
-            100% { bottom: 1080px; transform: translateX(-200px); }
-        }
-
         .container {
             position: relative;
             z-index: 2;
@@ -106,7 +70,6 @@
             min-height: 100vh;
         }
 
-        /* Header Styles */
         .header {
             position: fixed;
             top: 0;
@@ -220,7 +183,6 @@
             box-shadow: 0 8px 25px rgba(30, 60, 114, 0.6);
         }
 
-        /* Mobile Menu Toggle */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -249,7 +211,6 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        /* Page Title */
         .page-title {
             margin-top: 80px;
             padding: 30px 20px;
@@ -271,14 +232,12 @@
             50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(52, 152, 219, 0.6)); }
         }
 
-        /* Main Content */
         .main-content {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Cart Content */
         .cart-container {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -470,7 +429,6 @@
             background: linear-gradient(45deg, #0f2027, #1e3c72);
         }
 
-        /* Summary Styles */
         .summary-row {
             display: flex;
             justify-content: space-between;
@@ -531,7 +489,6 @@
             box-shadow: none;
         }
 
-        /* Mobile Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 padding: 0 10px;
@@ -679,7 +636,6 @@
             }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -699,7 +655,6 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
     <div class="particles">
         <div class="particle"></div>
         <div class="particle"></div>
@@ -712,17 +667,7 @@
         <div class="particle"></div>
     </div>
 
-    <!-- Floating Bubbles -->
-    <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
-
     <div class="container">
-        <!-- Header -->
         <header class="header" id="header">
             <div class="header-content">
                 <div class="logo">🌊 FoodieHub</div>
@@ -747,23 +692,17 @@
             </div>
         </header>
 
-        <!-- Page Title -->
         <div class="page-title">
             <h1 class="title">Shopping Cart</h1>
         </div>
 
-        <!-- Main Content -->
         <main class="main-content">
             <div class="cart-container">
-                <!-- Cart Items -->
                 <div class="cart-items">
                     <h2 class="section-title">Your Items</h2>
-                    <div id="cart-items-list">
-                        <!-- Cart items will be populated by JavaScript -->
-                    </div>
+                    <div id="cart-items-list"></div>
                 </div>
 
-                <!-- Cart Summary -->
                 <div class="cart-summary">
                     <h2 class="section-title">Order Summary</h2>
                     <div class="summary-row">
@@ -789,7 +728,6 @@
     </div>
 
     <script>
-        // Mobile Navigation and Scroll Behavior
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.getElementById('header');
             const menuToggle = document.getElementById('menuToggle');
@@ -797,14 +735,12 @@
             let lastScrollTop = 0;
             let isMenuOpen = false;
 
-            // Mobile menu toggle
             menuToggle.addEventListener('click', function() {
                 isMenuOpen = !isMenuOpen;
                 menuToggle.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking on nav links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 768) {
@@ -815,16 +751,13 @@
                 });
             });
 
-            // Hide/show header on scroll (mobile only)
             window.addEventListener('scroll', function() {
                 if (window.innerWidth <= 768) {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
                     if (scrollTop > lastScrollTop && scrollTop > 100 && !isMenuOpen) {
-                        // Scrolling down
                         header.classList.add('hidden');
                     } else {
-                        // Scrolling up
                         header.classList.remove('hidden');
                     }
                     
@@ -832,7 +765,6 @@
                 }
             });
 
-            // Handle window resize
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
                     header.classList.remove('hidden');
@@ -936,7 +868,6 @@
 
             checkoutBtn.addEventListener('click', function() {
                 if (!this.disabled) {
-                    // Calculate total for coin earning
                     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
                     let subtotal = 0;
                     cart.forEach(item => {
@@ -947,14 +878,12 @@
                     const delivery = subtotal > 30 ? 0 : 2.99;
                     const total = subtotal + tax + delivery;
 
-                    // Award coins (10 coins per dollar spent)
                     const coinsEarned = Math.floor(total * 10);
                     let currentCoins = parseInt(localStorage.getItem('coinBalance')) || 1250;
                     currentCoins += coinsEarned;
                     localStorage.setItem('coinBalance', currentCoins);
                     updateCoinDisplay();
 
-                    // Simulate checkout process
                     this.textContent = 'Processing...';
                     this.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
                     
@@ -968,10 +897,8 @@
                 }
             });
 
-            // Load cart on page load
             loadCart();
 
-            // Listen for coin updates
             window.addEventListener('storage', function(e) {
                 if (e.key === 'coinBalance') {
                     updateCoinDisplay();
@@ -979,7 +906,6 @@
             });
         });
 
-        // Load coin balance from localStorage
         function updateCoinDisplay() {
             const coinBalance = parseInt(localStorage.getItem('coinBalance')) || 1250;
             const headerCoins = document.getElementById('header-coins');
