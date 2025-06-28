@@ -26,7 +26,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating particles animation */
         .particles {
             position: fixed;
             top: 0;
@@ -64,41 +63,6 @@
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
-        /* Floating bubbles */
-        .bubbles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .bubble {
-            position: absolute;
-            bottom: -100px;
-            width: 40px;
-            height: 40px;
-            background: rgba(52, 152, 219, 0.1);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: rise 10s infinite ease-in;
-        }
-
-        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
-        .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 5s; animation-delay: 1s; }
-        .bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 7s; animation-delay: 2s; }
-        .bubble:nth-child(4) { width: 80px; height: 80px; left: 50%; animation-duration: 11s; animation-delay: 0s; }
-        .bubble:nth-child(5) { width: 35px; height: 35px; left: 55%; animation-duration: 6s; animation-delay: 1s; }
-
-        @keyframes rise {
-            0% { bottom: -100px; transform: translateX(0); }
-            50% { transform: translateX(100px); }
-            100% { bottom: 1080px; transform: translateX(-200px); }
-        }
-
         .container {
             position: relative;
             z-index: 2;
@@ -106,7 +70,6 @@
             min-height: 100vh;
         }
 
-        /* Header Styles */
         .header {
             position: fixed;
             top: 0;
@@ -220,7 +183,6 @@
             box-shadow: 0 8px 25px rgba(30, 60, 114, 0.6);
         }
 
-        /* Mobile Menu Toggle */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -249,7 +211,6 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
 
-        /* Page Title */
         .page-title {
             margin-top: 80px;
             padding: 30px 20px;
@@ -271,14 +232,12 @@
             50% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(52, 152, 219, 0.6)); }
         }
 
-        /* Main Content */
         .main-content {
             padding: 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Category Filter */
         .category-filter {
             display: flex;
             justify-content: center;
@@ -313,7 +272,6 @@
             transform: translateY(-2px);
         }
 
-        /* Menu Grid */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -455,7 +413,6 @@
             background: linear-gradient(45deg, #0f2027, #1e3c72);
         }
 
-        /* Mobile Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 padding: 0 10px;
@@ -613,7 +570,6 @@
             }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -633,7 +589,6 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
     <div class="particles">
         <div class="particle"></div>
         <div class="particle"></div>
@@ -646,17 +601,7 @@
         <div class="particle"></div>
     </div>
 
-    <!-- Floating Bubbles -->
-    <div class="bubbles">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
-
     <div class="container">
-        <!-- Header -->
         <header class="header" id="header">
             <div class="header-content">
                 <div class="logo">🌊 FoodieHub</div>
@@ -681,14 +626,11 @@
             </div>
         </header>
 
-        <!-- Page Title -->
         <div class="page-title">
             <h1 class="title">Our Delicious Menu</h1>
         </div>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Category Filter -->
             <div class="category-filter">
                 <button class="category-btn active" data-category="all">All Items</button>
                 <button class="category-btn" data-category="burgers">Burgers</button>
@@ -698,12 +640,10 @@
                 <button class="category-btn" data-category="drinks">Drinks</button>
             </div>
 
-            <!-- Menu Grid -->
             <div class="menu-grid">
-                <!-- Burger Items -->
                 <div class="menu-item" data-category="burgers">
                     <img src="/placeholder.svg?height=150&width=280" alt="Classic Burger" class="menu-item-image">
-                    <h3 class="menu-item-name">Classic Burger</h3>
+                    <h3 class="menu-item-name">Classic Beef Burger</h3>
                     <p class="menu-item-description">Juicy beef patty with fresh lettuce, tomatoes, onions, and our special sauce on a toasted bun.</p>
                     <div class="menu-item-price">$12.99</div>
                     <div class="menu-item-actions">
@@ -718,7 +658,7 @@
 
                 <div class="menu-item" data-category="burgers">
                     <img src="/placeholder.svg?height=150&width=280" alt="Chicken Burger" class="menu-item-image">
-                    <h3 class="menu-item-name">Grilled Burger</h3>
+                    <h3 class="menu-item-name">Grilled Chicken Burger</h3>
                     <p class="menu-item-description">Tender grilled chicken breast with avocado, bacon, and chipotle mayo on a brioche bun.</p>
                     <div class="menu-item-price">$13.99</div>
                     <div class="menu-item-actions">
@@ -731,7 +671,6 @@
                     </div>
                 </div>
 
-                <!-- Pizza Items -->
                 <div class="menu-item" data-category="pizza">
                     <img src="/placeholder.svg?height=150&width=280" alt="Margherita Pizza" class="menu-item-image">
                     <h3 class="menu-item-name">Margherita Pizza</h3>
@@ -762,7 +701,6 @@
                     </div>
                 </div>
 
-                <!-- Salad Items -->
                 <div class="menu-item" data-category="salads">
                     <img src="/placeholder.svg?height=150&width=280" alt="Caesar Salad" class="menu-item-image">
                     <h3 class="menu-item-name">Caesar Salad</h3>
@@ -793,7 +731,6 @@
                     </div>
                 </div>
 
-                <!-- Dessert Items -->
                 <div class="menu-item" data-category="desserts">
                     <img src="/placeholder.svg?height=150&width=280" alt="Chocolate Cake" class="menu-item-image">
                     <h3 class="menu-item-name">Chocolate Fudge Cake</h3>
@@ -824,7 +761,6 @@
                     </div>
                 </div>
 
-                <!-- Drink Items -->
                 <div class="menu-item" data-category="drinks">
                     <img src="/placeholder.svg?height=150&width=280" alt="Fresh Juice" class="menu-item-image">
                     <h3 class="menu-item-name">Fresh Orange Juice</h3>
@@ -859,7 +795,6 @@
     </div>
 
     <script>
-        // Mobile Navigation and Scroll Behavior
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.getElementById('header');
             const menuToggle = document.getElementById('menuToggle');
@@ -867,14 +802,12 @@
             let lastScrollTop = 0;
             let isMenuOpen = false;
 
-            // Mobile menu toggle
             menuToggle.addEventListener('click', function() {
                 isMenuOpen = !isMenuOpen;
                 menuToggle.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
 
-            // Close menu when clicking on nav links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 768) {
@@ -885,16 +818,13 @@
                 });
             });
 
-            // Hide/show header on scroll (mobile only)
             window.addEventListener('scroll', function() {
                 if (window.innerWidth <= 768) {
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     
                     if (scrollTop > lastScrollTop && scrollTop > 100 && !isMenuOpen) {
-                        // Scrolling down
                         header.classList.add('hidden');
                     } else {
-                        // Scrolling up
                         header.classList.remove('hidden');
                     }
                     
@@ -902,7 +832,6 @@
                 }
             });
 
-            // Handle window resize
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
                     header.classList.remove('hidden');
@@ -914,20 +843,16 @@
 
             updateCoinDisplay();
             
-            // Category filter functionality
             const categoryBtns = document.querySelectorAll('.category-btn');
             const menuItems = document.querySelectorAll('.menu-item');
 
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
                     categoryBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
                     this.classList.add('active');
 
                     const category = this.getAttribute('data-category');
 
-                    // Filter menu items
                     menuItems.forEach(item => {
                         if (category === 'all' || item.getAttribute('data-category') === category) {
                             item.style.display = 'block';
@@ -939,9 +864,7 @@
                 });
             });
 
-            // Quantity control functionality
             const qtyBtns = document.querySelectorAll('.qty-btn');
-            
             qtyBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const isIncrement = this.textContent === '+';
@@ -959,7 +882,6 @@
                     
                     qtyDisplay.textContent = currentQty;
                     
-                    // Add animation effect
                     qtyDisplay.style.transform = 'scale(1.2)';
                     setTimeout(() => {
                         qtyDisplay.style.transform = 'scale(1)';
@@ -967,11 +889,9 @@
                 });
             });
 
-            // Add to cart functionality
             const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
             addToCartBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Button animation
                     this.style.transform = 'scale(0.95)';
                     this.textContent = 'Added!';
                     this.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
@@ -982,13 +902,11 @@
                         this.style.background = 'linear-gradient(45deg, #1e3c72, #2980b9)';
                     }, 1500);
 
-                    // Get item details
                     const menuItem = this.closest('.menu-item');
                     const itemName = menuItem.querySelector('.menu-item-name').textContent;
                     const itemPrice = menuItem.querySelector('.menu-item-price').textContent;
                     const quantity = menuItem.querySelector('.qty-display').textContent;
 
-                    // Store in localStorage
                     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
                     const existingItem = cart.find(item => item.name === itemName);
                     
@@ -1006,7 +924,6 @@
                 });
             });
 
-            // Listen for coin updates
             window.addEventListener('storage', function(e) {
                 if (e.key === 'coinBalance') {
                     updateCoinDisplay();
@@ -1014,7 +931,6 @@
             });
         });
 
-        // Load coin balance from localStorage
         function updateCoinDisplay() {
             const coinBalance = parseInt(localStorage.getItem('coinBalance')) || 1250;
             const headerCoins = document.getElementById('header-coins');
