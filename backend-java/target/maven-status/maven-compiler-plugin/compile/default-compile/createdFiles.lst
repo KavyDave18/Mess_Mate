@@ -1,0 +1,13 @@
+com/messmate/controller/RedeemController.class
+com/messmate/repository/UserCouponRepository.class
+com/messmate/controller/UserController.class
+com/messmate/model/Coupon.class
+com/messmate/model/CartItem.class
+com/messmate/MessmateBackendApplication.class
+com/messmate/repository/CouponRepository.class
+com/messmate/repository/CartItemRepository.class
+com/messmate/model/UserCoupon.class
+com/messmate/repository/UserRepository.class
+com/messmate/controller/CartController.class
+com/messmate/controller/AuthController.class
+com/messmate/model/User.class
