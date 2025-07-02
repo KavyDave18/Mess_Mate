@@ -1,4 +1,4 @@
-# 🍱 MessMate - College Mess Food Ordering Web App
+<img width="1680" alt="Screenshot 2025-07-02 at 9 41 52 PM" src="https://github.com/user-attachments/assets/661c8c32-1392-46b7-ae50-b4187538e4e8" /># 🍱 MessMate - College Mess Food Ordering Web App
 
 MessMate is a real-world food ordering web application built for a college mess, offering students a smooth and intuitive way to browse menus, add items to a cart, and place orders—similar to McDonald's ordering experience.
 
@@ -80,4 +80,10 @@ Created by Kavy Dave
 
 ---
 
-- Screenshots or GIFs  (Coming soon)
+- Screenshots or GIFs
+
+<img width="1680" alt="Screenshot 2025-07-02 at 9 41 41 PM" src="https://github.com/user-attachments/assets/4f5e6cc4-1f69-4d2a-a5c3-724adce454c3" />
+<img width="1680" alt="Screenshot 2025-07-02 at 9 41 52 PM" src="https://github.com/user-attachments/assets/1596eb69-4581-4684-b9cd-d865043cfd8b" />
+<img width="1680" alt="Screenshot 2025-07-02 at 9 42 00 PM" src="https://github.com/user-attachments/assets/8d9709a5-7c1b-4b8c-b0ae-b0e86b2a5d6e" />
+<img width="1680" alt="Screenshot 2025-07-02 at 9 42 15 PM" src="https://github.com/user-attachments/assets/47172f82-5f02-4a14-a5a8-1af2a548ad14" />
+<img width="1675" alt="Screenshot 2025-07-02 at 9 42 24 PM" src="https://github.com/user-attachments/assets/bc786cb5-bdb6-4063-8dd3-247103dddbee" />
