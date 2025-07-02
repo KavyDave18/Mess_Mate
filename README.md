@@ -82,8 +82,9 @@ Created by Kavy Dave
 
 - Screenshots or GIFs
 
-<img width="1680" alt="Screenshot 2025-07-02 at 9 41 41 PM" src="https://github.com/user-attachments/assets/4f5e6cc4-1f69-4d2a-a5c3-724adce454c3" />
-<img width="1680" alt="Screenshot 2025-07-02 at 9 41 52 PM" src="https://github.com/user-attachments/assets/1596eb69-4581-4684-b9cd-d865043cfd8b" />
+<img width="1680" alt="Screenshot 2025-07-02 at 9 41 41 PM" src="https://github.com/user-attachments/assets/4c46028a-e256-4514-aacb-4846558668ca" />
+<img width="1680" alt="Screenshot 2025-07-02 at 9 41 52 PM" src="https://github.com/user-attachments/assets/78907f0d-b3a8-4e2e-bf71-e62f11d647ac" />
+
 <img width="1680" alt="Screenshot 2025-07-02 at 9 42 00 PM" src="https://github.com/user-attachments/assets/8d9709a5-7c1b-4b8c-b0ae-b0e86b2a5d6e" />
 <img width="1680" alt="Screenshot 2025-07-02 at 9 42 15 PM" src="https://github.com/user-attachments/assets/47172f82-5f02-4a14-a5a8-1af2a548ad14" />
 <img width="1675" alt="Screenshot 2025-07-02 at 9 42 24 PM" src="https://github.com/user-attachments/assets/bc786cb5-bdb6-4063-8dd3-247103dddbee" />
